@@ -3,6 +3,8 @@ import apiKey from './config';
 import axios from 'axios';
 import Photo from './Photo';
 import Gallery from './Gallery';
+import Nav from './Nav';
+import {BrowserRouter, Route} from 'react-router-dom'
 
 class App extends Component {
   state = {
@@ -18,7 +20,7 @@ class App extends Component {
         this.setState(() => {
           return { photos }
         });
-      })
+      });
   }
 
   componentDidMount() {
@@ -27,9 +29,17 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <Gallery photos={this.state.photos} />
-      </div>
+      <BrowserRouter>
+        <div className="container">
+          <Nav />
+          <Route 
+            path="/:topic" 
+            render= { (props) => (
+              <Gallery topic={props.match.params.topic} fetchFunction={this.fetchPhotosAbout} photos={this.state.photos}/>
+            )} 
+          />
+        </div>
+      </BrowserRouter>
     );
   }
 }
