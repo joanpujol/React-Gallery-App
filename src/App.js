@@ -1,6 +1,6 @@
 // Third party
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch  } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 // Flickr API key
@@ -10,7 +10,7 @@ import apiKey from './config';
 import Gallery from './components/Gallery';
 import Nav from './components/Nav';
 import SearchForm from './components/SearchForm';
-import NotFound from './components/NotFound'
+import NotFound from './components/NotFound';
 
 // Models
 import Photo from './models/Photo';
@@ -45,6 +45,10 @@ class App extends Component {
           <SearchForm />
           <Nav />
           <Switch>
+            <Route exact path="/" render={ () => (
+              // Default welcome page
+              <Redirect to="/hello" />
+            ) } />
             <Route
               exact path="/:topic"
               render= { (props) => {
@@ -56,7 +60,7 @@ class App extends Component {
                 }
               }
             />
-            <Route component={NotFound} />
+            <Route component={ NotFound } />
           </Switch>
         </div>
       </BrowserRouter>
