@@ -3,7 +3,7 @@ import React from 'react';
 const GalleryItem = (props) => {
     return (
         <li>
-            <img src={props.url} alt={props.alt} />
+            <img src={props.url} alt={props.alt} onError={(e) => props.handleImageNotFound(e)} />
         </li>
     );
 }
