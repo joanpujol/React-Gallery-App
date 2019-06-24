@@ -4,13 +4,13 @@
 
 ## Description ##
 
-For this project, I used React to create an image gallery app.
+For this project, I'm using React to create an image gallery app.
 
-For this project:
+Some of the technologies used to create this project are:
 
-- I used JavaScript and JSX to build out the gallery components in a modular fashion
-- I used React Router to make the app a Single Page Application
-- I Used Axios to fetch the Flickr API and use it to display the images on the app
+- JavaScript and JSX to build out the gallery components in a modular fashion
+- React Router to make the app a Single Page Application
+- Axios to fetch the Flickr API
 
 ## Access Locally
 

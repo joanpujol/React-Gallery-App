@@ -5,12 +5,22 @@ import GalleryItem from './GalleryItem';
 const Gallery = (props) => {
     const { fetchPhotos, photos, match, loading, handleImageNotFound } = props;
 
-    let galleryItems = photos.map((photo, index) => {
-        return <GalleryItem url={photo.image}
-                            alt={`${match.params.topic} image`}
-                            handleImageNotFound={handleImageNotFound}
-                            key={index} />
-    });
+    // Checks if there are photos for this topic
+    const areTherePhotos = photos.length > 0;
+
+    // Sets galleryItems with a default value
+    let galleryItems = <GalleryItem areTherePhotos={areTherePhotos} />
+
+    // If there are results (images) generates a list of galleryItems with them
+    if(areTherePhotos) {
+        galleryItems = photos.map((photo, index) => {
+            return <GalleryItem url={photo.image}
+                                alt={`${match.params.topic} image`}
+                                handleImageNotFound={handleImageNotFound}
+                                areTherePhotos={areTherePhotos}
+                                key={index} />
+        });
+    }
 
     // I use the useEffect hook to fetch the images
     useEffect(() => {
@@ -21,17 +31,7 @@ const Gallery = (props) => {
         <div className="photo-container">
             <h2>{match.params.topic}</h2>
             <ul>
-                { (() => {
-                    // Conditionally displays a loading message, the image gallery with the photos
-                    // or a message indicating that no images were found
-                    if(loading) {
-                        return <h1>Loading images...</h1>
-                    } else if (!loading && photos.length > 0) {
-                        return galleryItems;
-                    }  else {
-                        return <h1>Images not found!</h1>
-                    }
-                })() }
+                {loading ? <h1>Loading images...</h1> : galleryItems}
             </ul>
         </div>
     );
